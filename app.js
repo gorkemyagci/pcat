@@ -1,4 +1,11 @@
 const express = require('express');
+const Photo = require('./models/Photo');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/pcat-test-db', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 const app = express();
 const port = 3000;
@@ -8,17 +15,23 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.type('text/plain');
-    res.send('PCAT')
+app.get('/', async (req, res) => {
+    const photos = await Photo.find({});
+    for (let photo of photos) {
+        res.write(`
+        <div>
+            <h2>${photo.title}</h2>
+            <p>${photo.description}</p>
+            <img src="${photo.url}" alt="${photo.title}" />
+        </div>
+        `);
+    }
+    res.end();
 })
 
-app.post('/photos', (req, res) => {
-    res.send(
-        `Title: ${req.body.title}\nDescription: ${req.body.description}\nURL: ${req.body.url}`
-    );
-    console.log(req.body);
-    res.redirect('/');
+app.post('/photos', async (req, res) => {
+    await Photo.create(req.body);
+    res.status(200).send('Photo created successfully');
 })
 
 app.listen(port, () => {
