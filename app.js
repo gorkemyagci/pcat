@@ -1,19 +1,24 @@
 const express = require('express');
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 // middleware 
-// app.use(express.static('public'));
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.type('text/plain');
-    const photo = {
-        id: 1,
-        url: 'https://unsplash.com/photos/5fNmWej4tAA',
-        description: 'Photo of a doggo'
-    }
-    res.status(200).send(photo);
+    res.send('PCAT')
+})
+
+app.post('/photos', (req, res) => {
+    res.send(
+        `Title: ${req.body.title}\nDescription: ${req.body.description}\nURL: ${req.body.url}`
+    );
+    console.log(req.body);
+    res.redirect('/');
 })
 
 app.listen(port, () => {
