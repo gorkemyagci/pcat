@@ -1,0 +1,26 @@
+{
+  "name": "pcat",
+  "version": "1.0.0",
+  "description": "pcat photo app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorkemyagci/pcat.git"
+  },
+  "keywords": [
+    "photo",
+    "app"
+  ],
+  "author": "gorkem yagci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gorkemyagci/pcat/issues"
+  },
+  "homepage": "https://github.com/gorkemyagci/pcat#readme",
+  "devDependencies": {
+    "prettier": "3.0.3"
+  }
+}
